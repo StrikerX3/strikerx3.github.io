@@ -4,9 +4,11 @@ title:  "Hello, World!"
 date:   2019-02-26 17:45:40 +0300
 categories: meta
 ---
-Hello there visitor, and welcome to my blog!
+Hello there visitor, and welcome to my site!
 
 *What is this about?* It's about computer science and software development topics or projects I feel like discussing.
+
+<!-- more -->
 
 At the moment, I am focusing hard on an [Original Xbox](https://en.wikipedia.org/wiki/Xbox_(console)) emulator called [StrikeBox](https://github.com/StrikerX3/StrikeBox), which currently doesn't do much except boot a virtual x86 environment, run the Xbox BIOS ROMs and load a game from an XISO or a system dashboard from a virtual hard drive. I'm a member of the Xbox emulator development community; you may have heard of [Cxbx-Reloaded](https://github.com/Cxbx-Reloaded/Cxbx-Reloaded) or [XQEMU](https://github.com/xqemu/xqemu/).
 

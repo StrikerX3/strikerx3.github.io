@@ -6,7 +6,13 @@ categories: cpp
 ---
 I've been working on [virt86](https://github.com/StrikerX3/virt86) for a few weeks now, and some of the things I decided to focus on were type safety and making good use of modern C++ features. I did many things to reduce the chances for users to shoot their own foot with the library, such as [deleting move and copy constructors and assignment operators](https://github.com/StrikerX3/virt86/blob/d050883ee3931e6a0a74d3da9f6b948ee3cd0533/modules/core/include/virt86/platform/platform.hpp#L77) from classes to make sure there is only one instance obtained from a known source, [deleting](https://github.com/StrikerX3/virt86/blob/d050883ee3931e6a0a74d3da9f6b948ee3cd0533/modules/core/include/virt86/vp/vp.hpp#L108) or [hiding](https://github.com/StrikerX3/virt86/blob/d050883ee3931e6a0a74d3da9f6b948ee3cd0533/modules/core/include/virt86/vm/vm.hpp#L326) the address operator `&` so that users cannot get a pointer to objects that are not meant to be `delete`d and using `enum class` for type-safe enumerations.
 
-I figured it would be interesting to use `enum class`es as bitmasks for their type-safety. Unfortunately, you cannot use them as is with bitwise operators. I knew very little about `enum class`es at the time, so my first idea was to add methods to the type, assuming they would work like a `class`, however C++ disallows that. The next solution I thought of was to define operator overloads outside them, which I found out to be allowed by the language. Templates would make that even better.
+I figured it would be interesting to use `enum class`es as bitmasks for their type-safety. Unfortunately, you cannot use them as is with bitwise operators, but you can use other C++ features to make them behave like a bitmask type.
+
+<!-- more -->
+
+## A basic version
+
+I knew very little about `enum class`es at the time, so my first idea was to add methods to the type, assuming they would work like a `class`, however C++ disallows that. The next solution I thought of was to define operator overloads outside them, which I found out to be allowed by the language. Templates would make that even better.
 
 While researching a bit about using `enum class` as bitmasks I came across a [blog post](http://blog.bitwigglers.org/using-enum-classes-as-type-safe-bitmasks/) by Andre Haupt, which the author says is "a reiteration of a [blog post](https://www.justsoftwaresolutions.co.uk/cplusplus/using-enum-classes-as-bitfields.html) by Anthony Williams", which is exactly the kind of solution I envisioned. The post progressively expands from a motivating example based on `unsigned` values and regular `enums`, to a simple set of overloaded operators for an specific type of enumeration, to templates which encompass every `enum class` type, finishing with SFINAE to ensure only types tagged as bitmasks actually have access to the bitwise operators.
 
@@ -69,7 +75,9 @@ p |= Permissions::Executable;
 p &= ~Permissions::Writable;
 ```
 
-However, it falls short when it comes to another common use case for bitmasks: checking if a bitmask contains a particular bit. You have to do some convoluted and repetitive code to achieve that:
+## Limitations
+
+The original version falls short when it comes to another common use case for bitmasks: checking if a bitmask contains a particular bit. You have to do some convoluted and repetitive code to achieve that:
 
 ```cpp
 if ((p & Permissions::Executable) == Permissions::Executable) {
@@ -119,7 +127,9 @@ if (p.AnyExcept(Permissions::Executable)) {
 
 Unfortunately, we hit the same wall again: `enum class`es cannot have methods.
 
-But `struct`s can. The solution I came up with is to introduce a `struct` template which wraps an `enum class` and provides the check methods.
+## Enter the struct
+
+The solution I came up with is to introduce a `struct` template which wraps an `enum class` and provides the check methods.
 
 ```cpp
 template<typename Enum>
@@ -175,6 +185,8 @@ Much nicer and easier to understand. The best part of it? It's a [zero overhead 
 [![Optimized down to a simple return!](/assets/2.1-compiler-explorer.png)](/assets/2.1-compiler-explorer.png){:target="_blank"}  
 **Optimized down to a simple return!**
 {: style="text-align: center;"}
+
+## Caveats
 
 One thing to keep in mind, however, is that it is illegal to specialize a template in a different namespace. This will happen if you define an `enum class` in a namespace and immediately use the macro still within the namespace:
 
