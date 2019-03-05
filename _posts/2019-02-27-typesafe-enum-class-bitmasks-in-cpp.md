@@ -219,3 +219,17 @@ ENABLE_BITMASK_OPERATORS(foo::Bar)
 ```
 
 I hope this helps you use the type-safe `enum class` as bitmasks more comfortably!
+
+<script type="text/javascript">
+amzn_assoc_placement = "adunit0";
+amzn_assoc_search_bar = "false";
+amzn_assoc_tracking_id = "strikerx3-20";
+amzn_assoc_ad_mode = "manual";
+amzn_assoc_ad_type = "smart";
+amzn_assoc_marketplace = "amazon";
+amzn_assoc_region = "US";
+amzn_assoc_title = "Recommended C&plus;&plus; Books";
+amzn_assoc_linkid = "796d22e507ccb9ae006d695366296c30";
+amzn_assoc_asins = "0321334876,1491903996,0321714113,0321623215,0321227255,020163371X";
+</script>
+<script src="//z-na.amazon-adsystem.com/widgets/onejs?MarketPlace=US"></script>
