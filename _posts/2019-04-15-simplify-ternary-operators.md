@@ -56,18 +56,3 @@ It is interesting to note that certain IDEs (such as IntelliJ IDEA) will suggest
 [![IntelliJ IDEA suggests a simplification of a complicated ternary expression](/assets/3.1-intellij-simplify-ternary.png)](/assets/3.1-intellij-simplify-ternary.png){:target="_blank"}  
 **IntelliJ IDEA suggests a simplification of a complicated ternary expression**
 {: style="text-align: center;"}
-
-
-<script type="text/javascript">
-amzn_assoc_placement = "adunit0";
-amzn_assoc_search_bar = "false";
-amzn_assoc_tracking_id = "strikerx3-20";
-amzn_assoc_ad_mode = "manual";
-amzn_assoc_ad_type = "smart";
-amzn_assoc_marketplace = "amazon";
-amzn_assoc_region = "US";
-amzn_assoc_title = "Great Fundamental Programming Books";
-amzn_assoc_linkid = "56f3b31d4652c935c9d79b3444e7a8ee";
-amzn_assoc_asins = "0321751043,0262033844,032157351X,0596007124,020161622X,0132350882";
-</script>
-<script src="//z-na.amazon-adsystem.com/widgets/onejs?MarketPlace=US"></script>
